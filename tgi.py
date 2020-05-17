@@ -1,8 +1,10 @@
+import numbers
+
 def ID(value):
 	"""coerces valid IDs into integers"""
 	if value is None:
 		return None
-	if isinstance(value, long) or isinstance(value, int):
+	if isinstance(value, numbers.Number):
 		return value
 	if isinstance(value, str):
 		return int(value, 16)
