@@ -17,7 +17,7 @@ Name | Values
 Header | `fileIdentifier`,`fileMajor`,`fileMinor`,`userMajor`,`userMinor`,`flags`,`creationTime`,`updatedTime`,`indexRecordMajorVersion`,`indexRecordEntryCount`,`indexOffsetBytesV1`,`indexRecordSizeBytes`,`holeIndexEntryCount`,`holeIndexOffset`,`holeIndexSize`,`indexMinorVersion`,`indexOffsetBytes`,`reserved`
 Index | `version`,`count`,`offset`,`size`
 IndexEntry | `mType`,`mGroup`,`mInstanceEx`,`mInstance`,`mnPosition`,`mnSize`,`mnSizeDecompressed`,`mnCompressionType`,`mnCommitted`
-Record | `tgi`,`offset`,`length`,`raw`
+Record | `key`,`offset`,`length`,`raw`
 
 ## Usage
 
@@ -26,7 +26,7 @@ Print a list of Record objects with accessible propoerties.
 ```python
 db = DBPF(fd_input, verbose=True)
 for record in db.records:
-    print(record.tgi)
+    print(record.key)
     print(record.raw)
 
 ```

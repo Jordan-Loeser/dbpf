@@ -46,7 +46,7 @@ indexEntryTemplate = {
 class Header(namedtuple("DBPF_Header", ' '.join(list(headerTemplate.keys())[1:]))): pass
 class Index(namedtuple("DBPF_Index", 'version count offset size')): pass
 class IndexEntry(namedtuple("DBPF_IndexEntry", ' '.join(list(indexEntryTemplate.keys())[1:]))): pass
-class Record(namedtuple("DBPF_Record", 'tgi offset length raw')): pass
+class Record(namedtuple("DBPF_Record", 'key offset length raw')): pass
 
 # Build struct for parsing
 headerTemplateString = ''.join(headerTemplate.values())
@@ -161,7 +161,7 @@ class DBPF:
 			self._fd.seek(mnPosition)
 			newRecord = Record(
 				raw=self._fd.read(mnSize),
-				tgi=tgi.TGI(idx_entry.mType, idx_entry.mGroup, idx_entry.mInstance),
+				key=tgi.TGI(idx_entry.mType, idx_entry.mGroup, idx_entry.mInstance),
 				offset=mnPosition,
 				length=mnSize,
 			)
