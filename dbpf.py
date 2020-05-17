@@ -2,6 +2,7 @@
 import struct
 import os.path
 from collections import namedtuple
+import tgi
 
 # Based off the guidelines provided here:
 # http://simswiki.info/DatabasePackedFile
@@ -179,11 +180,10 @@ class DBPFException(Exception): pass
 
 if __name__ == "__main__":
 	import sys
-	import tgi
 
 	filename_input = sys.argv[1]
 	if not os.path.exists(filename_input):
 		raise ArgumentException('File')
 	with open(filename_input, 'rb') as fd_input:
 		db = DBPF(fd_input, verbose=True)
-		print('[*] db.ecords:', db.records)
+		print('[*] db.records:', db.records)
