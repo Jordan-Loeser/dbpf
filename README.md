@@ -1,13 +1,32 @@
-A file for reading and writing [DBPF](http://en.wikipedia.org/wiki/DBPF_(file_format) files
+# dbpf.py
 
-DBPF(fd):
-	takes a file and parses the first 96 bytes, checking to make sure it is a DBPF.
-	if fd is a string, try and open(fd, 'rb')
-	parse the index into self.records
-	try to parse the directory record into self.records, setting the record.size field to the un
+A tool for parsing DBPF (aka .package) files, a format that is described in more detail [here](https://modthesims.info/wiki.php?title=DBPF).
 
-DBPF.records:
-	retrieves the entirity of the index table from the file
+## Classes
 
-DBPF.search(tgi):
-	retreive a number of records that match the passed type/group/instance ID's
+`DBPF(fd)`:
+	Takes a file object and parses its header, index, and record entries into accessible properties.
+
+`TGI(tid, gid, iid)`: Takes a Target, Group, and Instance ID and parses it into a printable TGI object.
+
+
+## Named Tuples
+
+Name | Values
+--- | ---
+Header | `fileIdentifier`,`fileMajor`,`fileMinor`,`userMajor`,`userMinor`,`flags`,`creationTime`,`updatedTime`,`indexRecordMajorVersion`,`indexRecordEntryCount`,`indexOffsetBytesV1`,`indexRecordSizeBytes`,`holeIndexEntryCount`,`holeIndexOffset`,`holeIndexSize`,`indexMinorVersion`,`indexOffsetBytes`,`reserved`
+Index | `version`,`count`,`offset`,`size`
+IndexEntry | `mType`,`mGroup`,`mInstanceEx`,`mInstance`,`mnPosition`,`mnSize`,`mnSizeDecompressed`,`mnCompressionType`,`mnCommitted`
+Record | `key`,`offset`,`length`,`raw`
+
+## Usage
+
+Print a list of Record objects with accessible propoerties.
+
+```python
+db = DBPF(fd_input, verbose=True)
+for record in db.records:
+    print(record.key)
+    print(record.raw)
+
+```
